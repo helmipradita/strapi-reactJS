@@ -1,23 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import BlogList from './components/BlogList';
+import BlogAPI from './config/BlogAPI';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    BlogAPI.find().then(res => {
+      console.log(res);
+      setBlogs(res);
+    });
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div >
+      <header >
+        <h1 className="fw-bold text-center py-5">CRUD With strAPI</h1>
       </header>
+      <BlogList blogs={blogs}/>
     </div>
   );
 }
